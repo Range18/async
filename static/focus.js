@@ -26,26 +26,7 @@ run();
 
 function sendRequest(url) {
     return new Promise((resolve, reject) => {
-        const xhr = new XMLHttpRequest();
-        xhr.open("GET", url, true);
-
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState !== XMLHttpRequest.DONE) {
-                return;
-            }
-
-            if (xhr.status === 200) {
-                try {
-                    resolve(JSON.parse(xhr.responseText));
-                } catch (error) {
-                    reject(error);
-                }
-            } else {
-                reject(xhr.responseText);
-            }
-        };
-
-        xhr.send();
+        fetch(url).then(res => resolve(res.json())).catch(reject);
     })
 }
 
